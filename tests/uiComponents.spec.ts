@@ -107,3 +107,22 @@ test('tooltips', async({page}) => {
   expect(toolTip).toEqual("This is a tooltip")
 
 })
+
+test('dialog box', async({page}) => {
+
+  await page.getByText("Tables & Data").click();
+  await page.getByText("Smart Table").click();
+
+  //Playwright cancel dialog boxes automatically, so we need to override this behavior
+  page.on('dialog', dialog => {
+
+    expect(dialog.message()).toEqual('Are you sure you want to delete?')
+    dialog.accept()
+
+  })
+
+  await page.getByRole('table').locator('tr', {hasText: 'fat@yandex.ru'}).locator('.nb-trash').click()
+  await expect(page.locator('table tr').first()).not.toHaveText('fat@yandex.ru')
+
+})
+
