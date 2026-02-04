@@ -171,8 +171,67 @@ test('web tables', async({page}) => {
 
   }
 
+})
+
+test('datepicker', async({page}) => {
+
+  await page.getByText("Forms").click();
+  await page.getByText("Datepicker").click();
+
+  const calendarInput = page.getByPlaceholder('Form Picker')
+  await calendarInput.click()
+
+  let date = new Date()
+  date.setDate(date.getDate() + 7) //get date 1 days in the future
+  
+  const futureDay = date.getDate().toString()
+  const futureMonth = date.toLocaleString('default', {month: 'long'})
+  const futureYear = date.getFullYear()
+  const dateSelector = `${futureMonth} ${futureDay}, ${futureYear}`
+
+  let calendarMonthYear = await page.locator('nb-calendar-view-mode').textContent()
+  const expectedMonthYear = `${futureMonth} ${futureYear}`
+
+  while(!calendarMonthYear.includes(expectedMonthYear)){
+    await page.locator('nb-calendar-pageable-navigation [data-name="chevron-right"]').click()
+    calendarMonthYear = await page.locator('nb-calendar-view-mode').textContent()
+  }
+
+  await page.locator('[class="day-cell ng-star-inserted"]').getByText(futureDay, {exact: true}).click()
+  await expect(calendarInput).toHaveValue(dateSelector)
 
 })
+
+test('sliders', async({page}) => {
+
+  /* const tempGauge = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger circle')
+
+  await tempGauge.evaluate(node => {
+    node.setAttribute('cx', '232.630')
+    node.setAttribute('cy', '232.630')
+  })
+
+  await tempGauge.click() //click to trigger the change event 
+  // */
+
+
+  //Mouse movement in Bouding Box
+  const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger')
+  await tempBox.scrollIntoViewIfNeeded
+
+  const box = await tempBox.boundingBox()
+  const startX = box.x + box.width / 2
+  const startY = box.y + box.height / 2
+
+  await page.mouse.move(startX, startY)
+  await page.mouse.down()
+  await page.mouse.move(startX + 100, startY) //move right
+  await page.mouse.move(startX + 100, startY + 100) //move down
+  await page.mouse.up()
+  await expect(tempBox).toContainText('30')
+
+})
+
 
 
 
