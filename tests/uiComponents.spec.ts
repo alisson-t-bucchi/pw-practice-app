@@ -126,3 +126,30 @@ test('dialog box', async({page}) => {
 
 })
 
+test('web tables', async({page}) => {
+
+  await page.getByText("Tables & Data").click();
+  await page.getByText("Smart Table").click();
+
+  //1 get table row by text
+  const targetRow = page.getByRole('row', {name: /twitter@outlook.com/})
+  await targetRow.locator('.nb-edit').click()
+  await page.locator('input-editor').getByPlaceholder('Age').clear()
+  await page.locator('input-editor').getByPlaceholder('Age').fill('35')
+  await page.locator('.nb-checkmark').click()
+
+  //2 get the row based on the value in the specific column
+  await page.locator('.ng2-smart-pagination-nav').getByText('2').click() //go to page 2
+
+  const targetRowById = page.getByRole('row', {name: "16"}).filter({has: page.locator('td').nth(1).getByText('16')})
+  await targetRowById.locator('.nb-edit').click()
+  await page.locator('input-editor').getByPlaceholder('E-mail').clear()
+  await page.locator('input-editor').getByPlaceholder('E-mail').fill('atbucchi@test.com')
+  await page.locator('.nb-checkmark').click()
+  await expect(targetRowById.locator('td').nth(5)).toHaveText('atbucchi@test.com')
+
+
+})
+
+
+
