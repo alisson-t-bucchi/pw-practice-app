@@ -24,5 +24,6 @@ test('Using parametrized methods', async ({ page }) => {
 
     await navigateTo.formLayoutsPage();
     await onFormLayoutsPage.submitFormWithCredentials("test@test.com", "password123", "Option 2");
-
+    await onFormLayoutsPage.submitFormInBasicForm("Alisson B", "alisson.bucchi@test.com", true);
+    
 })
