@@ -1,7 +1,5 @@
 import {test, expect} from '@playwright/test';
-import { NavigationPage } from '../page-objects/navigationPage';
-import { FormLayoutsPage } from '../page-objects/formLayoutsPage';
-import { DatepickerPage } from '../page-objects/datepickerPage';
+import { PageManager } from '../page-objects/pageManager';
 
 test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:4200/');
@@ -9,26 +7,24 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('Using Page Objects', async ({ page }) => {
-    let navigateTo = new NavigationPage(page);
-    await navigateTo.formLayoutsPage();
-    await navigateTo.datepickerPage();
-    await navigateTo.smartTablePage();
-    await navigateTo.toasterPage();
-    await navigateTo.tooltipPage();
+    const pm = new PageManager(page);
+   
+    await pm.navigateTo().formLayoutsPage();
+    await pm.navigateTo().datepickerPage();
+    await pm.navigateTo().smartTablePage();
+    await pm.navigateTo().toasterPage();
+    await pm.navigateTo().tooltipPage();
 
 })
 
 test('Using parametrized methods', async ({ page }) => {
+    const pm = new PageManager(page);
 
-    const navigateTo = new NavigationPage(page);
-    const onFormLayoutsPage = new FormLayoutsPage(page);
-    const onDatepickerPage = new DatepickerPage(page);
-
-    await navigateTo.formLayoutsPage();
-    await onFormLayoutsPage.submitFormWithCredentials("test@test.com", "password123", "Option 2");
-    await onFormLayoutsPage.submitFormInBasicForm("Alisson B", "alisson.bucchi@test.com", true);
-    await navigateTo.datepickerPage();
-    await onDatepickerPage.selectDatePickerFromToday(7);
-    await onDatepickerPage.selectDatePickerFromTodayWithRange(7, 14);
+    await pm.navigateTo().formLayoutsPage();
+    await pm.onFormLayoutsPage().submitFormWithCredentials("test@test.com", "password123", "Option 2");
+    await pm.onFormLayoutsPage().submitFormInBasicForm("Alisson B", "alisson.bucchi@test.com", true);
+    await pm.navigateTo().datepickerPage();
+    await pm.onDatepickerPage().selectDatePickerFromToday(7);
+    await pm.onDatepickerPage().selectDatePickerFromTodayWithRange(7, 14);
 
 })

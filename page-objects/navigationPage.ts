@@ -1,16 +1,17 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
+import { HelperBase } from "./helperBase";
+import { group } from "console";
 
-export class NavigationPage {
-    
-    readonly page: Page;                                           
+export class NavigationPage extends HelperBase {                                      
 
     constructor(page: Page) {                                          
-        this.page = page;
+        super(page);
     }
     
     async formLayoutsPage() {
         await this.selectGroupMenuItem("Forms");
-        await this.page.getByText("Form Layouts").click();        
+        await this.page.getByText("Form Layouts").click();
+        await this.waitForNumberOfSeconds(2);        
     }
 
     async datepickerPage() {
@@ -41,6 +42,7 @@ export class NavigationPage {
 
         if(expanded === "false"){
             await groupMenuItem.click();
+            await expect(groupMenuItem).toHaveAttribute("aria-expanded", "true");
         }
     }
 
