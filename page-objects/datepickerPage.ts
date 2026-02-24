@@ -46,7 +46,7 @@ export class DatepickerPage extends HelperBase {
             calendarMonthYear = await this.page.locator('nb-calendar-view-mode').textContent()
         }
         
-        await this.page.locator('.day-cell.ng-star-inserted').getByText(futureDay, {exact: true}).click()      
+        await this.page.locator('.day-cell.ng-star-inserted').getByText(futureDay, {exact: true}).click() 
         return dateSelector
     }
 
