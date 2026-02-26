@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
     await page.goto('/');
 }); 
 
-test('Using Page Objects', async ({ page }) => {
+test('Using Page Objects @regression', async ({ page }) => {
     const pm = new PageManager(page);
     await pm.navigateTo().formLayoutsPage();
     await pm.navigateTo().datepickerPage();
@@ -15,7 +15,7 @@ test('Using Page Objects', async ({ page }) => {
     await pm.navigateTo().tooltipPage();
 }); 
 
-test('Using parametrized methods', async ({ page }) => {
+test('Using parametrized methods @block', async ({ page }) => {
     const pm = new PageManager(page);
     const randomName = faker.person.fullName();
     //const randomEmail = faker.internet.email();
