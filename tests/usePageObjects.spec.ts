@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
     await page.goto('/');
 }); 
 
-test('Using Page Objects @regression', async ({ page }) => {
+test('Using Page Objects @smoke @regression', async ({ page }) => {
     const pm = new PageManager(page);
     await pm.navigateTo().formLayoutsPage();
     await pm.navigateTo().datepickerPage();
@@ -26,8 +26,8 @@ test('Using parametrized methods @block', async ({ page }) => {
     
     //await page.screenshot({ path: 'screenshots/screenshot.png' });
     //await page.locator('nb-card', {hasText: "Inline form"}).screenshot({path: 'screenshots/inline-form.png'});
-    const buffer = await page.locator('nb-card', {hasText: "Inline form"}).screenshot();
-    console.log(buffer.toString('base64'));
+    //const buffer = await page.locator('nb-card', {hasText: "Inline form"}).screenshot();
+    //console.log(buffer.toString('base64'));
     
     await pm.onFormLayoutsPage().submitFormInBasicForm(randomName, randomEmail, true);
     await pm.navigateTo().datepickerPage();
