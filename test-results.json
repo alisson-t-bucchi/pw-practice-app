@@ -109,50 +109,107 @@
     "shard": null,
     "tags": [],
     "updateSnapshots": "missing",
-    "updateSourceMethod": "3way",
+    "updateSourceMethod": "patch",
     "version": "1.58.2",
-    "workers": 1,
-    "webServer": null
+    "workers": 8,
+    "webServer": {
+      "command": "npm run start",
+      "url": "http://localhost:4200"
+    }
   },
   "suites": [
     {
-      "title": "testMobile.spec.ts",
-      "file": "testMobile.spec.ts",
+      "title": "usePageObjects.spec.ts",
+      "file": "usePageObjects.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "input fields",
+          "title": "Using Page Objects @regression",
           "ok": true,
-          "tags": [],
+          "tags": [
+            "regression"
+          ],
           "tests": [
             {
               "timeout": 30000,
               "annotations": [],
               "expectedStatus": "passed",
-              "projectId": "Mobile Chrome",
-              "projectName": "Mobile Chrome",
+              "projectId": "chromium",
+              "projectName": "chromium",
               "results": [
                 {
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2486,
+                  "duration": 8825,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-02-26T00:28:56.612Z",
+                  "startTime": "2026-02-26T13:39:43.542Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\pw-practice-app-master\\test-results\\usePageObjects-Using-Page-Objects-regression-chromium\\video.webm"
+                    }
+                  ]
                 }
               ],
               "status": "expected"
             }
           ],
-          "id": "bc004e7dcdc8a65b7092-b6286f880fbc90f13d63",
-          "file": "testMobile.spec.ts",
-          "line": 11,
+          "id": "fa018c391591bb0319e0-2d23faa5b6b19188db5c",
+          "file": "usePageObjects.spec.ts",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "Using parametrized methods @block",
+          "ok": true,
+          "tags": [
+            "block"
+          ],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6888,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "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\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-26T13:39:53.409Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\pw-practice-app-master\\test-results\\usePageObjects-Using-parametrized-methods-block-chromium\\video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fa018c391591bb0319e0-46ba9365e0069643a23f",
+          "file": "usePageObjects.spec.ts",
+          "line": 18,
           "column": 5
         }
       ]
@@ -160,9 +217,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-02-26T00:28:52.395Z",
-    "duration": 7215.328000000001,
-    "expected": 1,
+    "startTime": "2026-02-26T13:39:09.307Z",
+    "duration": 51313.089,
+    "expected": 2,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
