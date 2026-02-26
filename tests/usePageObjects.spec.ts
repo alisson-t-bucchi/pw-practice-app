@@ -1,18 +1,26 @@
 import {test, expect} from '@playwright/test';
 import { PageManager } from '../page-objects/pageManager';
 import { faker } from '@faker-js/faker';
+import { argosScreenshot } from "@argos-ci/playwright";
 
 test.beforeEach(async ({ page }) => {
     await page.goto('/');
+    await argosScreenshot(page, 'Home Page');
+
 }); 
 
 test('Using Page Objects @smoke @regression', async ({ page }) => {
     const pm = new PageManager(page);
     await pm.navigateTo().formLayoutsPage();
+    await argosScreenshot(page, 'Form Layouts Page');
     await pm.navigateTo().datepickerPage();
+    await argosScreenshot(page, 'Datepicker Page');
     await pm.navigateTo().smartTablePage();
+    await argosScreenshot(page, 'Smart Table Page');
     await pm.navigateTo().toasterPage();
+    await argosScreenshot(page, 'Toaster Page');
     await pm.navigateTo().tooltipPage();
+    await argosScreenshot(page, 'Tooltip Page');
 }); 
 
 test('Using parametrized methods @block', async ({ page }) => {
@@ -33,6 +41,7 @@ test('Using parametrized methods @block', async ({ page }) => {
     await pm.navigateTo().datepickerPage();
     await pm.onDatepickerPage().selectDatePickerFromToday(7);
     await pm.onDatepickerPage().selectDatePickerFromTodayWithRange(7, 14);
+    await argosScreenshot(page, 'Datepicker Page with selected dates');
 
 })
 
